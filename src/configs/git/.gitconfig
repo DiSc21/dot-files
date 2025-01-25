@@ -1,0 +1,26 @@
+[user]
+	name = TheDirkKnight
+	email = dirkschnabel03@aol.com
+	userConfigOnly = true
+[core]
+	editor = vim
+[show]
+	Stash = true
+[fetch]
+	prune = true
+[blame]
+	coloring = highlightRecent
+[diff]
+	colorMoved = default
+	colorMovedWS = allow-indentation-change
+[log]
+  follow = true
+[alias]
+  st = status
+  ch = checkout
+  com = commit
+  chb = "checkout -b"
+  chm = "checkout master"
+  puf = "git push -f"
+  pup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
+
