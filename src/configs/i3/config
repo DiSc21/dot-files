@@ -133,8 +133,8 @@ bindsym $mod+Shift+space floating toggle
 #BINDSYM  some basic i3 startup shortcuts
 #BINDSYM ==================================================================================================
 # open a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-#bindsym $mod+Return exec xfce4-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec xfce4-terminal
 # open dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
 # use rofi for fast app switching
