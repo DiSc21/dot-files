@@ -1,3 +1,5 @@
 # Don't track vim swp files
 **/**.swp
 **/**.swo
+
+**/xfce4/help.rc
