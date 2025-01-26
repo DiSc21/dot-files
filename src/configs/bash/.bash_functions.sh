@@ -11,6 +11,14 @@ function create_hw_info()
 }
 
 BRC_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SOURCE=${BASH_SOURCE[0]}
+while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  BRC_DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+  SOURCE=$(readlink "$SOURCE")
+  [[ $SOURCE != /* ]] && SOURCE=$BRC_DIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+BRC_DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
 cat "${BRC_DIR}/ascii/bash_ascii_head_vim_batman" > /tmp/bash_intro
 create_hw_info
 boxes -d columns -p a2v1 -s 82x6 /tmp/hw_info >> /tmp/bash_intro
