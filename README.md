@@ -6,13 +6,14 @@ A collection of different dot files and helper scripts, e.g.
 ### Added Dot-Files
 
 * [ ] i3 (dirty)
+* [ ] bashrc
+* [x] tmux
 * [x] inputrc
 * [x] gitconfig
+* [x] xfce4-terminal
 
 ### Missing Dot-Files
 
-* [x] bashrc
-* [x] jgmenu
-* [x] screen
-* [x] tmux
+* [ ] vim
+* [ ] jgmenu
 
