@@ -47,8 +47,8 @@ set completion-prefix-display-length 4
 set colored-completion-prefix On
 set menu-complete-display-prefix On
 
-TAB: menu-complete-backward
-"\e[Z": menu-complete
+TAB: menu-complete
+"\e[Z": menu-complete-backward
 
 set keymap vi-insert
 RETURN: "\e\n"
