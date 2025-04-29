@@ -1,3 +1,5 @@
+# shellcheck disable=2148
+#
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -74,7 +76,7 @@ esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r "${HOME}/.dircolors" && eval "$(dircolors -b ${HOME}/.dircolors)" || eval "$(dircolors -b)"
+    test -r "${HOME}/.dircolors" && ( eval "$(dircolors -b "${HOME}"/.dircolors)" || eval "$(dircolors -b)" )
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
@@ -96,17 +98,48 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+
+#
+# @brief get the real location after resolving all links
+#
+# @params arg1 file/link/directory location to be resolved
+# @return real location of file/link/directory passed in as first argument
+#
+get_real_location()
+{
+    if [[ "$#" -ne "1" ]]
+    then
+        echo "Error: function get_real_location expects exactly one argument!"
+        exit 1
+    fi
+    SOURCE="$1"
+
+    TMP_DIR=$( cd -- "$( dirname -- "${SOURCE}" )" &> /dev/null && pwd )
+    while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+        TMP_DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+        SOURCE=$(readlink "$SOURCE")
+        [[ $SOURCE != /* ]] && SOURCE=$TMP_DIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+    done
+    TMP_DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
+    echo "${TMP_DIR}"
+}
+
+BRC_LOCATION=$( get_real_location "${BASH_SOURCE[0]}" )
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 #~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f "${HOME}/.bash/.bash_aliases" ]; then
-    . "${HOME}/.bash/.bash_aliases"
+if [ -f "${BRC_LOCATION}/bash_aliases" ]; then
+    # shellcheck source=/home/han/.dot_files/src/configs/bash/bash_aliases
+    . "${BRC_LOCATION}/bash_aliases"
 fi
 
-if [ -f "${HOME}/.bash/.bash_functions" ]; then
-    . "${HOME}/.bash/.bash_functions"
+if [ -f "${BRC_LOCATION}/bash_functions.sh" ]; then
+    # shellcheck source=/home/han/.dot_files/src/configs/bash/bash_functions.sh
+    . "${BRC_LOCATION}/bash_functions.sh"
 fi
 
 
@@ -116,30 +149,42 @@ fi
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/completion ]; then
+    # shellcheck disable=1091
     . /usr/share/bash-completion/completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
 fi
-#[ -r /home/dirkschnabel/.byobu/prompt ] && . /home/dirkschnabel/.byobu/prompt   #byobu-prompt#
-complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | grep -v ".PHONY" |  sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+
+#complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | grep -v \".PHONY\" |  sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+
+function followMakefile() {
+  grep -oE '^[a-zA-Z0-9_.-]+[\/]*[a-zA-Z0-9_.-]+:([^=]|$)' ./?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'
+
+  # shellcheck disable=2013
+  for x in $(grep -E '^include' ./?akefile | sed 's/include //')
+  do
+    grep -oE '^[a-zA-Z0-9_.-]+[\/]*[a-zA-Z0-9_.-]+:([^=]|$)' "${x}"  | grep -v "PHONY" | sed 's/[^a-zA-Z0-9_.-]*$//'
+  done
+}
+complete -W "\`followMakefile\`" make
+
+#function recurseMakefile() {
+#  # First, look for any targets here - then look for includes and recurse
+#  grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' $1 | sed 's/[^a-zA-Z0-9_.-]*$//' | grep -v '.phony'
+#  for x in $(grep -E '^include' $1 | sed -e 's/include //' -e 's/(/{/' -e 's/)/}/')
+#  do
+#    # Use envsubst to force variable name expansion
+#    recurseMakefile "$(echo "$x" | envsubst)"
+#  done
+#}
+#complete -W "\$(recurseMakefile ?akefile)" make
+
 
 if [ -f /usr/share/bash-completion/completions/git ]
 then
   source /usr/share/bash-completion/completions/git
 fi
-
-BRC_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-SOURCE=${BASH_SOURCE[0]}
-while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  BRC_DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
-  SOURCE=$(readlink "$SOURCE")
-  [[ $SOURCE != /* ]] && SOURCE=$BRC_DIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-BRC_DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
-
-# some bash intro ascii art
-"${BRC_DIR}/.bash_functions.sh"
 
 #source /opt/ros/melodic/setup.bash
 #export ROS_HOSTNAME=NANZ88
@@ -178,18 +223,22 @@ alias ll='ls -hl'
 alias l='ls -hl -a'
 
 
-
+# source /usr/share/doc/fzf/examples/completion.bash
+# source /usr/share/doc/fzf/examples/key-bindings.bash
 source "${HOME}/.atuin/bin/env"
 
 if [ -f "${HOME}/.bash-preexec.sh" ]
 then
   # well
   source "${HOME}/.bash-preexec.sh"
-  eval "$(atuin init bash)"
+  eval "$(atuin init bash --disable-up-arrow)"
   atuin import bash >/dev/null 2>&1
 fi
+
 
 #export PATH=${HOME}/.navi:$PATH
 #navi start
 #eval "$(navi widget bash)"
+
+create_bash_intro
 
