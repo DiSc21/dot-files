@@ -1,0 +1,269 @@
+snippet lic "Simple license snippet" b
+/*
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡆⠀⠀⠀⠀⠀⠀⠀⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ Copyright (c) <`echo $(date +%Y)`> <TDK-Codes>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⣿⡀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⡿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ Permission is hereby granted, free of charge, to any person
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⢀⣀⣀⣀⣀⡀⠀⢀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ obtaining a copy of this software and associated documentation
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣷⣼⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ files (the "Software"), to deal in the Software without restriction,
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ including without limitation the rights to use, copy, modify, merge,
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ publish, distribute, sublicense, and/or sell copies of the Software,
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ and to permit persons to whom the Software is furnished to do so,
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢙⡻⢿⣿⡿⡟⣿⣿⡿⠟⣛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ subject to the following conditions:
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠓⠂⠁ ⡀⠀ ⠐⠛⠁
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⢠⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ The above copyright notice and this permission notice shall be
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡆⠀⠀⠀ ⠀⠀⠈⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ included in all copies or substantial portions of the Software.
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣴⡾⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+⠀⠀⠀⠀⢀⣀⣀⣤⣤⣶⣿⣿⣿⣿⣿⣷⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣻⣿⣿⣿⣷⣶⣤⣤⣤⣄⣀⠀⠀⠀⠀ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+⠀⢀⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⡄⠀ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡶⠂⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠻⣷⣶⣤⣀⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+⠀⣿⣿⠟⠁⠀⢠⣿⣿⣿⣿⣿⣿⡿⢟⣭⣶⣿⣷⣄⠀⠀⠀⣤⣀⡄⠀⠀⢀⣴⣿⣿⣷⣝⡻⣿⣿⣿⣿⣿⣿⣦⡀⠀⠉⠛⢿⠀ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+⠀⠿⠁⠀⠀⠀⠋⠁⣿⣿⣿⡿⢋⣴⣿⣿⣿⣿⣿⣿⣿⣶⣾⣿⣿⣿⣶⣿⣿⣿⣿⣿⣿⣿⣿⣮⡻⣿⣿⣿⠯⠉⠙⠀⠀⠀⠀⠀ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+⠀⠀⠀⠀⠀⠀⠀⠘⠁⠽⠋⠠⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠷⠌⠻⠟⠀⠀⠀⠀⠀⠀⠀⠀ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠁
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ Initial Author: TheDirkKnight (`echo $(date)`)
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠏
+*/
+endsnippet
+
+snippet todo "Todo snippet with user and time" b
+// TODO: ${1:} (`echo $USER`, `!v strftime("%c")`)
+endsnippet
+
+snippet pra "pragma once snippet" b
+#pragma once
+endsnippet
+
+
+snippet is "system include snippet" b
+#include <$1>
+endsnippet
+snippet il "local include snippet" b
+#include "$1"
+endsnippet
+snippet icom "local include snippet" b
+#include "src/common/src/$1"
+endsnippet
+
+snippet imen "magic_enum  includes snippet" b
+#include <magic_enum.hpp>
+#include <magic_enum_utility.hpp>
+endsnippet
+snippet ierr "local error handler includes snippet" b
+#include "src/common/src/error/Error.hpp"
+#include "src/common/src/error/ErrorConfiguration.hpp"
+#include "src/common/src/error/ErrorHandler.hpp"
+endsnippet
+snippet ilog "local logger handler includes snippet" b
+#include "src/common/src/error/Log.hpp"
+#include "src/common/src/error/LogConfig.hpp"
+#include "src/common/src/error/LogSpdConfig.hpp"
+endsnippet
+
+snippet ns "namespace snippet" b
+namespace ${1:stan}
+{
+    $2
+} // namspace $1
+endsnippet
+
+snippet gtm "gtest snippet" b
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
+#include <stdexcept>
+
+int main(int argc, char** argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    auto res = RUN_ALL_TESTS();
+    return res;
+}
+endsnippet
+snippet gt "gtest snippet" b
+TEST(${1:MyTest}, ${2:TestCase})
+{
+}
+endsnippet
+snippet gf "gtest snippet" b
+class ${1:MyTest_TestFixture} : public ::testing::Test
+{
+  public:
+    void SetUp() override {}
+    void Teardown() override {}
+};
+
+TEST_F($1, ${2:FixtureTestCase})
+{
+}
+endsnippet
+
+
+
+snippet temp "template function snippet" b
+/// @brief $5
+/// @tparam $3 $6
+/// @param $7
+/// @throws
+/// @return
+template <typename ${3:T}> ${4:void} ${1:func}(${2:})
+{
+}
+endsnippet
+
+
+
+snippet if "if snippet" b
+if ($1)
+{
+    $2
+}
+endsnippet
+snippet else "else snippet" b
+else
+{
+    $1
+}
+endsnippet
+snippet elif "else-if snippet" b
+else if ($1)
+{
+    $2
+}
+endsnippet
+
+
+snippet ife "if-else snippet" b
+if ($1)
+{
+    $2
+}
+else
+{
+    $3
+}
+endsnippet
+snippet ifei "if-else-if snippet" b
+if ($1)
+{
+    $3
+}
+else if ($2)
+{
+    $4
+}
+endsnippet
+snippet ifeie "if-else-if-else snippet" b
+if ($1)
+{
+    $3
+}
+else if ($2)
+{
+    $4
+}
+else
+{
+    $3
+}
+endsnippet
+
+
+
+
+snippet for "Simple range-based c++ for loop snippet" b
+for(const auto ${2:value} : ${1:vec})
+{
+}
+endsnippet
+
+snippet fori "Simple c++ for iteration snippet" b
+for(int ${1:i}=${2:0}; $1 < ${3:10}; ${4:$1++})
+{
+}
+endsnippet
+
+
+snippet cl "Simple c++ class snippet" b
+/// @brief $2
+class $1
+{
+  public:
+    $1() = default;
+
+  private:
+};
+endsnippet
+
+snippet cl3 "Simple c++ class snippet according to rule of three" b
+/// @brief $2
+class $1
+{
+  public:
+    $1() = default;
+
+    // copy constructor
+    $1(const $1& other)  = default;
+
+    // copy assignment operator
+    $1 operator=(const $1& other)  = default;
+
+    // destructor
+    ~$1(){}
+
+  private:
+};
+endsnippet
+
+snippet cl5 "Simple c++ class snippet according to rule of five" b
+/// @brief $2
+class $1
+{
+  public:
+    $1() = default;
+
+    // copy/move constructors
+    $1(const $1& other)  = default;
+    $1(const $1&& other) = default;
+
+    // copy/move assignment operators
+    $1 operator=(const $1& other)  = default;
+    $1 operator=(const $1&& other) = default;
+
+    // destructor
+    ~$1(){}
+
+  private:
+};
+endsnippet
+
+
+
+
+snippet enum "Simple c++ enum snippet" b
+/// @brief enum class describing different $2
+enum class $1
+{
+};
+endsnippet
+
+snippet enums "Simple c++ enum and size snippet" b
+/// @brief enum class describing different $2
+enum class $1
+{
+};
+/// @brief number of elements in enum $1
+static constexpr size_t ${2:kNum$1} = static_cast<size_t>(magic_enum::enum_count<$1>());
+endsnippet
+
+snippet enumsv "Simple c++ enum and size snippet" b
+/// @brief enum class describing different $2
+enum class $1
+{
+};
+/// @brief number of elements in enum $1
+static constexpr size_t ${2:kNum$1} = static_cast<size_t>(magic_enum::enum_count<$1>());
+
+// assert $1 is an ordered sequence starting from 0, i.e. (0, 1, 2, ..., n)
+static_assert(assertEnumAscendingSequence<$1>(), "Enum $1 is not an ordered sequence");
+endsnippet
+
