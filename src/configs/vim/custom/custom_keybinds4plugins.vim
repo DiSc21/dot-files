@@ -12,6 +12,16 @@ let g:UltiSnipsExpandTrigger="<c-g>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
+
+
+nnoremap <Leader>cj :set syntax=cpp<CR> :call SyntaxRange#Include('{{', '}}', 'jinja')<CR> :call SyntaxRange#Include('{%', '%}', 'jinja')<CR>
+nnoremap <Leader>bj :set syntax=bzl<CR> :call SyntaxRange#Include('{{', '}}', 'jinja')<CR> :call SyntaxRange#Include('{%', '%}', 'jinja')<CR>
+nnoremap <Leader>jj :set syntax=json<CR> :call SyntaxRange#Include('{{', '}}', 'jinja')<CR> :call SyntaxRange#Include('{%', '%}', 'jinja')<CR>
+
+nnoremap <Leader>sc :set syntax=cpp<CR>
+nnoremap <Leader>sj :call SyntaxRange#Include('{{', '}}', 'jinja')<CR> :call SyntaxRange#Include('{%', '%}', 'jinja')<CR>
+
+
 " ===================================================================
 " float term mappings
 " ===================================================================

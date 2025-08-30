@@ -1,6 +1,7 @@
 " ================== pathogen ====================
 "execute pathogen#infect()
 
+" ================== VimPlug =====================
 call plug#begin('~/.vim/plugged')
   Plug 'vim-scripts/vim-plug'
   Plug 'vim-airline/vim-airline'
@@ -10,11 +11,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/nerdtree'
   Plug 'rhysd/vim-clang-format'
   Plug 'scrooloose/syntastic'
+  Plug 'glench/vim-jinja2-syntax'
+  Plug 'vim-scripts/SyntaxRange'
+  Plug 'neoclide/coc.nvim'
   Plug 'szw/vim-ctrlspace'
   Plug 'tpope/vim-fugitive'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'z0mbix/vim-shfmt'
+  Plug 'rust-lang/rust.vim'
   "Plug 'valloric/youcompleteme'
   Plug 'easymotion/vim-easymotion'
   Plug 'honza/vim-snippets'
@@ -25,6 +30,15 @@ call plug#begin('~/.vim/plugged')
   "Plug 'kien/ctrlp.vim'
   "Plug 'rking/ag.vim'
 call plug#end()
+
+":source %
+":PlugInstall
+
+
+" ================ Vundle deps ===================
+"Bundle "lepture/vim-jinja"
+":so ~/.vimrc
+":BundleInstall
 
 " ================== sources =====================
 source ~/.vim/custom/custom_settings.vim

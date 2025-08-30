@@ -7,6 +7,7 @@ filetype indent on
 " Enable syntax highlighting
 syntax on
 
+
 " ====================================================================
 " utf 8
 scriptencoding utf-8
